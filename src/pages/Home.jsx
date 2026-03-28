@@ -55,13 +55,31 @@ function Home() {
         </form>
       </section>
 
+      {/* Error Message */}
+      {error && (
+        <div className="text-center p-4 bg-red-500/10 border border-red-500/50 rounded-xl text-red-400">
+          {error}
+        </div>
+      )}
+
       {/* Grid Section */}
-      <div className="movie-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {movies.map((movie) => (
-          <MovieCard movie={movie} key={movie.title} />
-        ))}
+      <div className="movie-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 pb-20">
+        {loading
+          ? // SKELETON LOADING STATE
+            [...Array(8)].map((_, i) => (
+              <div key={i} className="animate-pulse flex flex-col gap-4">
+                <div className="aspect-[2/3] w-full bg-slate-800 rounded-2xl"></div>
+                <div className="space-y-2 px-2">
+                  <div className="h-4 w-3/4 bg-slate-800 rounded"></div>
+                  <div className="h-3 w-1/4 bg-slate-800 rounded"></div>
+                </div>
+              </div>
+            ))
+          : // ACTUAL MOVIE LIST
+            movies.map((movie) => <MovieCard movie={movie} key={movie.id} />)}
       </div>
     </div>
   );
 }
+
 export default Home;
