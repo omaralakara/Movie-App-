@@ -38,11 +38,11 @@ function MovieCard({ movie }) {
           </h3>
           <div className="flex items-center justify-between">
             <span className="movie-year text-xs font-bold uppercase tracking-widest text-cyan-500/80">
-              {movie.year}
+              {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
             </span>
             {/* Added a subtle "HD" or Rating tag for visual 'fullness' */}
             <span className="text-[10px] px-2 py-0.5 rounded border border-slate-700 text-slate-500 font-bold uppercase">
-              4K Ultra
+              4k Ultra
             </span>
           </div>
         </div>
