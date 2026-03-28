@@ -25,12 +25,28 @@ function Home() {
     loadPopularMovies();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    alert(`Searching for: ${searchTerm}`);
-    setSearchTerm("");
-  };
 
+    // 1. Prevent searching for empty strings or just spaces
+    if (!searchTerm.trim()) return;
+
+    // 2. Start loading state and clear old errors
+    setLoading(true);
+    setError(null);
+
+    try {
+      // 3. Fetch search results from TMDB
+      const searchResults = await searchMovies(searchTerm);
+      setMovies(searchResults);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to search movies. Please try again.");
+    } finally {
+      // 4. Turn off loading regardless of success or failure
+      setLoading(false);
+    }
+  };
   return (
     <div className="home space-y-12">
       {/* Search Section */}
